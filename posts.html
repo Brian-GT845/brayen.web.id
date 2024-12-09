@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fetch API Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans">
+    <header class="bg-blue-600 text-white py-4 shadow-md">
+      <div
+        class="container mx-auto flex justify-between items-center px-4 flex-col sm:flex-row"
+      >
+        <div class="flex items-center mb-4 sm:mb-0">
+          <img
+            src="apple-touch-icon.png"
+            alt="Kelas Pintar Logo"
+            class="h-10"
+          />
+          <h1 class="ml-3 text-xl font-bold">Kelas Pintar</h1>
+        </div>
+        <nav class="w-full sm:w-auto">
+          <ul class="flex justify-center space-x-6 sm:space-x-6">
+            <li><a href="index.html" class="hover:underline">Home</a></li>
+            <li><a href="biodata.html" class="hover:underline">Biodata</a></li>
+            <li>
+              <a href="contact_us.html" class="hover:underline">Contact Us</a>
+            </li>
+            <li>
+              <a href="posts.html" class="hover:underline">Additional</a>
+            </li>
+            <li><a href="freepage.html" class="hover:underline">Content</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <div
+        id="post-container"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      ></div>
+    </main>
+
+    <footer class="bg-blue-600 text-white py-8">
+      <div
+        class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
+        <div>
+          <h3 class="text-lg font-bold mb-4">Tentang Kami</h3>
+          <p>
+            Kelas Pintar adalah platform belajar online untuk semua kebutuhan
+            siswa dan orang tua.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-4">Tautan Cepat</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="https://fti.unai.edu" class="hover:underline"
+                >FTI UNAI</a
+              >
+            </li>
+            <li>
+              <a href="https://unai.edu" class="hover:underline"
+                >UNAI Website</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://jurnal.unai.edu/index.php/teika"
+                class="hover:underline"
+                >Jurnal Teika</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-4">Hubungi Kami</h3>
+          <p>Email: contact@example.com</p>
+          <p>Telepon: +1234567890</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-4">Unduh Aplikasi</h3>
+          <div class="space-y-2">
+            <a
+              href="https://play.google.com/store/apps/details?id=id.extramarks.learningapp&hl=id"
+              target="_blank"
+            >
+              <img
+                src="image.png"
+                alt="Google Play Store"
+                class="h-8 max-w-full"
+              />
+            </a>
+            <a
+              href="https://apps.apple.com/id/app/kelas-pintar/id1469195409"
+              target="_blank"
+            >
+              <img
+                src="image copy.png"
+                alt="Google app-store"
+                class="h-9 max-w-fullh"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <p>© 2024 Kelas Pintar. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const url = "https://jsonplaceholder.typicode.com/posts/51";
+
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              "Network response was not ok " + response.statusText
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          displayPost(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+
+      function displayPost(post) {
+        const container = document.getElementById("post-container");
+
+        const postCard = `
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+          <h2 class="text-xl font-bold text-blue-600 mb-2">Post ID: ${post.id}</h2>
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">${post.title}</h3>
+          <p class="text-gray-600">${post.body}</p>
+        </div>
+      `;
+
+        container.innerHTML = postCard;
+      }
+    </script>
+  </body>
+</html>
